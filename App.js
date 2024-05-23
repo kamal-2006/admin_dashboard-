@@ -27,13 +27,13 @@ const Dashboard = () => {
   return (
     <div>
       <h3>Student Statistics</h3>
-      <div>
-        <p>Total Students: {totalStudents}</p>
-        <p>Enrolled Students: {enrolledStudents}</p>
-        <p>New Students: {newStudents}</p>
+      <div className="statistics">
+        <p>Total Students: <span>{totalStudents}</span></p>
+        <p>Enrolled Students: <span>{enrolledStudents}</span></p>
+        <p>New Students: <span>{newStudents}</span></p>
       </div>
       <h3>Recent Activities</h3>
-      <ul>
+      <ul className="activities-list">
         {activities.map((activity) => (
           <li key={activity.id}>
             <p>{activity.activity}</p>
@@ -51,11 +51,36 @@ const StudentList = () => {
     { id: 2, name: 'Manoj', grade: 'B' },
     { id: 3, name: 'Sathya', grade: 'C' },
   ]);
+  const [newStudent, setNewStudent] = useState({ id: '', name: '', grade: '' });
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleAddStudent = () => {
+    setStudents([...students, { ...newStudent, id: students.length + 1 }]);
+    setNewStudent({ id: '', name: '', grade: '' });
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewStudent({ ...newStudent, [name]: value });
+  };
+
+  const filteredStudents = students.filter(student =>
+    student.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div>
       <h3>Student List</h3>
-      <input type="text" placeholder="Search students..." />
+      <input
+        type="text"
+        placeholder="Search students..."
+        value={searchTerm}
+        onChange={handleSearch}
+      />
       <table>
         <thead>
           <tr>
@@ -65,7 +90,7 @@ const StudentList = () => {
           </tr>
         </thead>
         <tbody>
-          {students.map((student) => (
+          {filteredStudents.map((student) => (
             <tr key={student.id}>
               <td>{student.id}</td>
               <td>{student.name}</td>
@@ -74,6 +99,22 @@ const StudentList = () => {
           ))}
         </tbody>
       </table>
+      <h4>Add New Student</h4>
+      <input
+        type="text"
+        placeholder="Name"
+        name="name"
+        value={newStudent.name}
+        onChange={handleInputChange}
+      />
+      <input
+        type="text"
+        placeholder="Grade"
+        name="grade"
+        value={newStudent.grade}
+        onChange={handleInputChange}
+      />
+      <button onClick={handleAddStudent}>Add Student</button>
     </div>
   );
 };
@@ -84,11 +125,36 @@ const CourseList = () => {
     { id: 2, name: 'Engineering Mathematics', instructor: 'Manoj' },
     { id: 3, name: 'English Literature', instructor: 'Sathya' },
   ]);
+  const [newCourse, setNewCourse] = useState({ id: '', name: '', instructor: '' });
+  const [searchTerm, setSearchTerm] = useState('');
+
+  const handleSearch = (e) => {
+    setSearchTerm(e.target.value);
+  };
+
+  const handleAddCourse = () => {
+    setCourses([...courses, { ...newCourse, id: courses.length + 1 }]);
+    setNewCourse({ id: '', name: '', instructor: '' });
+  };
+
+  const handleInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewCourse({ ...newCourse, [name]: value });
+  };
+
+  const filteredCourses = courses.filter(course =>
+    course.name.toLowerCase().includes(searchTerm.toLowerCase())
+  );
 
   return (
     <div>
       <h3>Course List</h3>
-      <input type="text" placeholder="Search courses..." />
+      <input
+        type="text"
+        placeholder="Search courses..."
+        value={searchTerm}
+        onChange={handleSearch}
+      />
       <table>
         <thead>
           <tr>
@@ -98,7 +164,7 @@ const CourseList = () => {
           </tr>
         </thead>
         <tbody>
-          {courses.map((course) => (
+          {filteredCourses.map((course) => (
             <tr key={course.id}>
               <td>{course.id}</td>
               <td>{course.name}</td>
@@ -107,6 +173,22 @@ const CourseList = () => {
           ))}
         </tbody>
       </table>
+      <h4>Add New Course</h4>
+      <input
+        type="text"
+        placeholder="Name"
+        name="name"
+        value={newCourse.name}
+        onChange={handleInputChange}
+      />
+      <input
+        type="text"
+        placeholder="Instructor"
+        name="instructor"
+        value={newCourse.instructor}
+        onChange={handleInputChange}
+      />
+      <button onClick={handleAddCourse}>Add Course</button>
     </div>
   );
 };
