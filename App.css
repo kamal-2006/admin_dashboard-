@@ -1,4 +1,4 @@
-/* Basic resets */
+
 * {
   box-sizing: border-box;
   margin: 0;
@@ -196,4 +196,38 @@ input[type="text"] {
 
 .save-button:hover {
   background-color: #36597c;
+}
+
+.statistics p {
+  font-size: 18px;
+}
+
+.statistics span {
+  font-weight: bold;
+}
+
+.activities-list {
+  list-style: none;
+}
+
+.activities-list li {
+  background-color: #f0f0f0;
+  margin: 10px 0;
+  padding: 10px;
+  border-radius: 8px;
+  box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.add-student-form,
+.add-course-form {
+  display: flex;
+  margin-bottom: 20px;
+}
+
+.add-student-form input,
+.add-course-form input {
+  margin-right: 10px;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
 }
